@@ -3,6 +3,7 @@ package factorio
 import (
 	"errors"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 )
 
 type CraftComponents struct {
@@ -10,12 +11,15 @@ type CraftComponents struct {
 }
 
 // CraftComponents returns a flat list of the items required to 
-// make the specified item directly. No recursive computation 
-// of those ingredients' ingredients.
-func (db *ItemDb) CraftComponents(itemId string, report *CraftComponents) (err error) {
-	item, ok := db.Data[itemId]
+// make the specified item directly. 
+func (db *ItemDb) ComputeCraftComponents(targetItemId string, quantity int, report *CraftComponents) (err error) {
+	logger := log.WithFields(log.Fields{
+		"func": "ItemDb#ComputeCraftComponents",
+		"ItemId": targetItemId,
+	})
+	item, ok := db.Data[targetItemId]
 	if !ok {
-		return errors.New(fmt.Sprintf("Item Not Found: %s", itemId))
+		return errors.New(fmt.Sprintf("Item Not Found: %s", targetItemId))
 	}
 
 	// The item will have no recipes if it is a base component
@@ -29,16 +33,15 @@ func (db *ItemDb) CraftComponents(itemId string, report *CraftComponents) (err e
 		// Utilizing the fact that a Go map access returns 
 		// the zero-value of the result if the key is not found,
 		// we don't need to check for membership and initialize.
-		components[ingredient.ItemName] += ingredient.Quantity
+		components[ingredient.ItemName] += ingredient.Quantity * quantity
 	}
 
 	// Initialize the report if needed. If not, merge our data in
-	if report == nil {
-		report = &CraftComponents{Items:components}
-	} else {
-		for itemId, qty := range components {
-			report.Items[itemId] += qty
-		}
+	for itemId, qty := range components {
+		logger.Debugln("Adding", itemId, " +", qty)
+		report.Items[itemId] += qty
+		// Compute the component breakdown for this item as well
+		db.ComputeCraftComponents(itemId, qty, report)
 	}
 
 	return nil

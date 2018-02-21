@@ -81,7 +81,7 @@
 			"yield": 1,
 			"ingredients": [{
 				"qty": 1,
-				"item": "iron ore"
+				"item": "iron-ore"
 			}]
 		}]
 	},

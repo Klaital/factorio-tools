@@ -62,7 +62,6 @@ func main() {
 	if config.AnalyzeItem {
 		// Initialize the component breakdown report
 		report := factorio.CraftComponents{Items:make(map[string]int)}
-		
 
 		for _, itemId := range flag.Args() {
 			logger = logger.WithFields(log.Fields{
@@ -71,7 +70,7 @@ func main() {
 			})
 			logger.Debugln("Analyzing Item:", itemId)
 
-			err := db.CraftComponents(itemId, &report)
+			err := db.ComputeCraftComponents(itemId, 1, &report)
 			if err != nil {
 				logger.Errorln("Failed to compute crafting requirements:", err.Error())
 			} else {

@@ -81,7 +81,7 @@
 			"yield": 1,
 			"ingredients": [{
 				"qty": 1,
-				"item": "iron ore"
+				"item": "iron-ore"
 			}]
 		}]
 	},
@@ -522,6 +522,31 @@
 				},
 				{
 					"qty": 2,
+					"item": "steel-plate"
+				}
+			]
+		}]
+	},
+	{
+		"name": "pumpjack",
+		"recipes": [{
+			"time": 5,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 5,
+					"item": "electronic-circuit"
+				},
+				{
+					"qty": 10,
+					"item": "iron-gear-wheel"
+				},
+				{
+					"qty": 10,
+					"item": "pipe"
+				},
+				{
+					"qty": 5,
 					"item": "steel-plate"
 				}
 			]
