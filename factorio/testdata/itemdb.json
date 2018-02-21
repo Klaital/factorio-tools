@@ -1,0 +1,531 @@
+[
+	{
+		"name": "iron-ore"
+	},
+	{
+		"name": "copper-ore"
+	},
+	{
+		"name": "coal"
+	},
+	{
+		"name": "petroleum-gas"
+	},
+
+	{
+		"name": "water"
+	},
+	{
+		"name": "stone"
+	},
+	{
+		"name": "stone-brick",
+		"recipes": [{
+			"time": 3.5,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 2,
+					"item": "stone"
+				}
+			]
+		}]
+	},
+	{
+		"name": "concrete",
+		"recipes": [{
+			"time": 10,
+			"yield": 10,
+			"ingredients": [
+				{
+					"qty": 1,
+					"item": "iron-ore"
+				},
+				{
+					"qty": 5,
+					"item": "stone-brick"
+				},
+				{
+					"qty": 100,
+					"item": "water"
+				}
+			]
+		}]
+	},
+	{
+		"name": "sulfuric-acid",
+		"recipes": [{
+			"time": 1,
+			"yield": 50,
+			"ingredients": [
+				{
+					"qty": 1,
+					"item": "iron-ore"
+				},
+				{
+					"qty": 5,
+					"item": "sulfur"
+				},
+				{
+					"qty": 100,
+					"item": "water"
+				}
+			]
+
+		}]
+	},
+	{
+		"name": "iron-plate",
+		"recipes": [{
+			"time": 3.5,
+			"yield": 1,
+			"ingredients": [{
+				"qty": 1,
+				"item": "iron ore"
+			}]
+		}]
+	},
+	{
+		"name": "pipe",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [{
+				"qty": 1,
+				"item": "iron-plate"
+			}]
+		}]
+	},
+	{
+		"name": "sulfur",
+		"recipes": [{
+			"time": 1.0,
+			"yield": 2,
+			"ingredients": [
+				{
+					"qty": 30,
+					"item": "petroleum gas"
+				},
+				{
+					"qty": 30,
+					"item": "water"
+				}
+			]
+		}]
+	},
+	{
+		"name": "copper-plate",
+		"recipes": [{
+			"time": 3.5,
+			"yield": 1,
+			"ingredients": [{
+				"qty": 1,
+				"item": "copper-ore"
+			}]
+		}]
+	},
+	{
+		"name": "copper-cable",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 2,
+			"ingredients": [{
+				"qty": 1,
+				"item": "copper-plate"
+			}]
+		}]
+	},
+	{
+		"name": "electronic-circuit",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [{
+					"qty": 3,
+					"item": "copper-cable"
+				},{
+					"qty": 1,
+					"item": "iron-plate"
+			}]
+		}]
+	},
+	{
+		"name": "plastic-bar",
+		"recipes": [{
+			"time": 1,
+			"yield": 2,
+			"ingredients": [
+				{
+					"qty": 1,
+					"item": "coal"
+				},
+				{
+					"qty": 20,
+					"item": "petroleum-gas"
+				}
+			]
+		}]
+	},
+	{
+		"name": "advanced-circuit",
+		"recipes": [{
+			"time": 6,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 4,
+					"item": "copper-cable"
+				},
+				{
+					"qty": 2,
+					"item": "electronic-circuit"
+				},
+				{
+					"qty": 2,
+					"item": "plastic-bar"
+				}
+			]
+		}]
+	},
+	{
+		"name": "steel-plate",
+		"recipes": [{
+			"time": 17.5,
+			"yield": 1,
+			"ingredients": [{
+					"qty": 5,
+					"item": "iron-plate"
+				}
+			]
+		}]
+	},
+	{
+		"name": "iron-gear-wheel",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [{
+				"qty": 2,
+				"item": "iron-plate"
+			}]
+		}]
+	},
+	{
+		"name": "transport-belt",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [{
+					"qty": 1,
+					"item": "iron-plate"
+				},
+				{
+					"qty": 1,
+					"item": "iron-gear-wheel"
+				}
+			]
+		}]
+	},
+	{
+		"name": "heat-pipe",
+		"recipes": [{
+			"time": 1,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 20,
+					"item": "copper-plate"
+				},
+				{
+					"qty": 10,
+					"item": "steel-plate"
+				}
+			]
+		}]
+	},
+	{
+		"name": "heat-exchanger",
+		"recipes": [{
+			"time": 3,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 100,
+					"item": "copper-plate"
+				},
+				{
+					"qty": 10,
+					"item": "pipe"
+				},
+				{
+					"qty": 10,
+					"item": "steel-plate"
+				}
+			]
+		}]
+	},
+	{
+		"name": "offshore-pump",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 2,
+					"item": "electronic-circuit"
+				},
+				{
+					"qty": 1,
+					"item": "iron-gear-wheel"
+				},
+				{
+					"qty": 1,
+					"item": "pipe"
+				}
+			]
+		}]
+	},
+	{
+		"name": "boiler",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 1,
+					"item": "stone-furnace"
+				},
+				{
+					"qty": 4,
+					"item": "pipe"
+				}
+			]
+		}]
+	},
+	{
+		"name": "stone-furnace",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 5,
+					"item": "stone"
+				}
+			]
+		}]
+	},
+	{
+		"name": "steam-engine",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 10,
+					"item": "iron-plate"
+				},
+				{
+					"qty": 8,
+					"item": "iron-gear-wheel"
+				},
+				{
+					"qty": 5,
+					"item": "pipe"
+				}
+			]
+		}]
+	},
+	{
+		"name": "storage-tank",
+		"recipes": [{
+			"time": 3,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 20,
+					"item": "iron-plate"
+				},
+				{
+					"qty": 5,
+					"item": "steel-plate"
+				}
+			]
+		}]
+	},
+	{
+		"name": "assembling-machine-1",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 3,
+					"item": "electronic-circuit"
+				},
+				{
+					"qty": 5,
+					"item": "iron-gear-wheel"
+				},
+				{
+					"qty": 9,
+					"item": "iron-plate"
+				}
+			]
+		}]
+
+	},
+	{
+		"name": "assembling-machine-2",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 1,
+					"item": "assembling-machine-1"
+				},
+				{
+					"qty": 5,
+					"item": "iron-gear-wheel"
+				},
+				{
+					"qty": 9,
+					"item": "iron-plate"
+				},
+				{
+					"qty": 3,
+					"item": "electronic-circuit"
+				}
+			]
+		}]
+
+	},
+	{
+		"name": "battery",
+		"recipes": [{
+			"time": 5,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 1,
+					"item": "copper-plate"
+				},
+				{
+					"qty": 1,
+					"item": "iron-plate"
+				},
+				{
+					"qty": 20,
+					"item": "sulfuric-acid"
+				}
+			]
+		}]
+	},
+	{
+		"name": "laser-turret",
+		"recipes": [{
+			"time": 20,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 12,
+					"item": "battery"
+				},
+				{
+					"qty": 20,
+					"item": "electronic-circuit"
+				},
+				{
+					"qty": 20,
+					"item": "steel-plate"
+				}
+			]
+		}]
+	},
+{
+		"name": "artillery-shell",
+		"recipes": [{
+			"time": 15,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 4,
+					"item": "explosive-cannon-shell"
+				},
+				{
+					"qty": 8,
+					"item": "explosives"
+				},
+				{
+					"qty": 1,
+					"item": "radar"
+				}
+			]
+		}]
+	},
+	{
+		"name": "radar",
+		"recipes": [{
+			"time": 0.5,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 5,
+					"item": "iron-gear-wheel"
+				},
+				{
+					"qty": 5,
+					"item": "electronic-circuit"
+				},
+				{
+					"qty": 10,
+					"item": "iron-plate"
+				}
+			]
+		}]
+	},
+	{
+		"name": "explosives",
+		"recipes": [{
+			"time": 20,
+			"yield": 2,
+			"ingredients": [
+				{
+					"qty": 1,
+					"item": "coal"
+				},
+				{
+					"qty": 1,
+					"item": "sulfur"
+				},
+				{
+					"qty": 10,
+					"item": "water"
+				}
+			]
+		}]
+	},
+	{
+		"name": "explosive-cannon-shell",
+		"recipes": [{
+			"time": 8,
+			"yield": 1,
+			"ingredients": [
+				{
+					"qty": 2,
+					"item": "explosives"
+				},
+				{
+					"qty": 2,
+					"item": "plastic-bar"
+				},
+				{
+					"qty": 2,
+					"item": "steel-plate"
+				}
+			]
+		}]
+	}
+]
+
