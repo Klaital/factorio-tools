@@ -1,9 +1,9 @@
 package factorio
 
 import (
+	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"testing"
-	log "github.com/sirupsen/logrus"
 )
 
 func TestSingleItemComponents(t *testing.T) {
@@ -20,7 +20,7 @@ func TestSingleItemComponents(t *testing.T) {
 	}
 
 	testItemId := "boiler"
-	var report  = CraftComponents{Items:make(map[string]int)}
+	var report = CraftComponents{Items: make(map[string]int)}
 	computeErr := db.ComputeCraftComponents(testItemId, 1, &report)
 	if computeErr != nil {
 		t.Error("Error computing components for a", testItemId, ":", err.Error())
@@ -28,13 +28,13 @@ func TestSingleItemComponents(t *testing.T) {
 	}
 	if 5 != len(report.Items) {
 		t.Errorf("Incorrect component count. Expected %d, got %d",
-				5,
-				len(report.Items))
+			5,
+			len(report.Items))
 	}
 	if 4 != report.Items["pipe"] {
 		t.Errorf("Incorrect pipe count. Expected %d, got %d",
-				4,
-				report.Items["pipe"])
+			4,
+			report.Items["pipe"])
 	}
 }
 
@@ -52,7 +52,7 @@ func TestRecursiveComputation(t *testing.T) {
 	}
 
 	testItemId := "boiler"
-	var report  = CraftComponents{Items:make(map[string]int)}
+	var report = CraftComponents{Items: make(map[string]int)}
 	computeErr := db.ComputeCraftComponents(testItemId, 1, &report)
 	if computeErr != nil {
 		t.Error("Error computing components for a", testItemId, ":", err.Error())
@@ -60,19 +60,19 @@ func TestRecursiveComputation(t *testing.T) {
 	}
 	if 5 != len(report.Items) {
 		t.Errorf("Incorrect component count. Expected %d, got %d",
-				5,
-				len(report.Items))
+			5,
+			len(report.Items))
 	}
 	if 5 != report.Items["stone"] {
 		t.Errorf("Incorrect stone count. Expected %d, got %d",
-				5,
-				report.Items["stone"])
+			5,
+			report.Items["stone"])
 	}
 
 	if 4 != report.Items["iron-plate"] {
 		t.Errorf("Incorrect iron-plate count. Expected %d, got %d",
-				4,
-				report.Items["iron-plate"])
+			4,
+			report.Items["iron-plate"])
 	}
 	if 4 != report.Items["iron-ore"] {
 		t.Errorf("Incorrect iron-ore count. Expected %d, got %d",

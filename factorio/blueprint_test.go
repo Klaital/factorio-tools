@@ -1,10 +1,10 @@
 package factorio
 
 import (
+	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"strings"
 	"testing"
-	log "github.com/sirupsen/logrus"
 )
 
 func TestParseBlueprintString(t *testing.T) {
@@ -37,7 +37,7 @@ func TestParseBpBookString(t *testing.T) {
 		t.Errorf("Failed to parse BP book string: %s", bpErr.Error())
 		t.Fail()
 	}
-//	log.Debugln("Book:", *bpBook)
+	//	log.Debugln("Book:", *bpBook)
 
 	if bpBook == nil {
 		t.Error("No Blueprint Book was generated")
@@ -48,4 +48,3 @@ func TestParseBpBookString(t *testing.T) {
 		t.Errorf("Failed to read item name. Expected %s, got %s", "blueprint-book", bpBook.Item)
 	}
 }
-

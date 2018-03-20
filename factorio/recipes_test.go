@@ -1,9 +1,9 @@
 package factorio
 
 import (
+	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"testing"
-	log "github.com/sirupsen/logrus"
 )
 
 func TestLoadItemDb(t *testing.T) {
@@ -34,10 +34,9 @@ func TestLoadItemDb(t *testing.T) {
 		t.Error("Iron Plate was not found in the database")
 	} else {
 		if 1 != len(ironPlate.Recipes) {
-			t.Error("Incorrect number of recipes for Iron Plate. Expected %d, got %d", 
-					1,
-					len(ironPlate.Recipes))
+			t.Error("Incorrect number of recipes for Iron Plate. Expected %d, got %d",
+				1,
+				len(ironPlate.Recipes))
 		}
 	}
 }
-
