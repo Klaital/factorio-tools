@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	log "github.com/sirupsen/logrus"
+	"strings"
 )
 
 type Blueprint struct {
@@ -52,9 +53,11 @@ type BlueprintBook struct {
 }
 
 func ParseBlueprintString(bp string) (blueprint *Blueprint, err error) {
-	data, decodeErr := base64.StdEncoding.DecodeString(bp)
+
+	actualBase64String := strings.TrimPrefix(bp, "0")
+	data, decodeErr := base64.StdEncoding.DecodeString(actualBase64String)
 	if decodeErr != nil {
-		log.Errorln("Failed to decode the Base64 string:", decodeErr.Error())
+		log.Errorf("Failed to decode the Base64 string:", decodeErr.Error())
 		return nil, decodeErr
 	}
 
@@ -82,7 +85,7 @@ func ParseBlueprintString(bp string) (blueprint *Blueprint, err error) {
 func ParseBlueprintBookString(bp string) (bpBook *BlueprintBook, err error) {
 	data, decodeErr := base64.StdEncoding.DecodeString(bp)
 	if decodeErr != nil {
-		log.Errorln("Failed to decode the Base64 string:", decodeErr.Error())
+		log.Errorf("Failed to decode the Base64 string: %s", decodeErr)
 		return nil, decodeErr
 	}
 
