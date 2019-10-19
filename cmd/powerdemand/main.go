@@ -9,11 +9,12 @@ import (
 )
 
 func main() {
+
 	var blueprintPath string
 	var recipeListerDirectory string
 
 	flag.StringVar(&blueprintPath, "bp", "", "File containing blueprint data")
-	flag.StringVar(&recipeListerDirectory, "recipes", "", "Directory containing output from recipe-lister mod")
+	flag.StringVar(&recipeListerDirectory, "recipes", "recipe-lister", "Directory containing output from recipe-lister mod")
 	flag.Parse()
 
 	if len(blueprintPath) == 0 {
@@ -51,7 +52,7 @@ func main() {
 	totalPower := 0.0
 	for _, entity := range blueprint.Details.Entities {
 		entities[entity.Name] = entities[entity.Name] + 1
-		if machine, ok := machines[entity.Name]; ok {
+		if machine, ok := machines[recipe_lister.MachineName(entity.Name)]; ok {
 			totalPower += machine.GetOperatingKiloWatts()
 			totalPowerForEntity[entity.Name] = totalPowerForEntity[entity.Name] + machine.GetOperatingKiloWatts()
 		}
