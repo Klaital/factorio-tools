@@ -28,18 +28,14 @@ func main() {
 		panic(err)
 	}
 
-	var processes *ProcessList
+	var processes *recipe_lister.ProcessChain
 	if len(listFile) > 0 {
 		fmt.Printf("Loading processes from file %s...\n", listFile)
-		processes, err = LoadProcessList(listFile)
+		processes, err = recipe_lister.LoadProcessChain(listFile, recipeListerDirectory)
 		if err != nil {
 			panic(err)
 		}
 		fmt.Printf("Loaded %d processes\n", len(processes.Processes))
-		err = processes.PopulateData(data)
-		if err != nil {
-			panic(err)
-		}
 	} else {
 
 		if len(machineId) == 0 {
@@ -61,30 +57,41 @@ func main() {
 			os.Exit(1)
 		}
 
-		processes = &ProcessList{Processes: []ProcessDescription{
+		processes = &recipe_lister.ProcessChain{Processes: []recipe_lister.Process{
 			{
-				MachineId: machineId,
-				RecipeId:  recipe_lister.RecipeName(recipeId),
-				Count:     machineCount,
-				Machine:   &machine,
-				Recipe:    &recipe,
+				MachineCount: machineCount,
+				Machine:      machine,
+				Recipe:       recipe,
 			},
 		}}
 	}
 
-	for i, rates := range processes.CalculateRates() {
-		comment := ""
-		if len(processes.Processes[i].Notes) > 0 {
-			comment = fmt.Sprintf(" (%s) ", processes.Processes[i].Notes)
-		}
-		fmt.Printf("\n===== %f x %s%s===== \n", processes.Processes[i].Count, processes.Processes[i].RecipeId, comment)
-		fmt.Printf("---- Input\n")
-		for item, rate := range rates.Inputs {
-			fmt.Printf("%s\t%f /s\n", item, rate*machineCount)
-		}
-		fmt.Printf("---- Output\n")
-		for item, rate := range rates.Outputs {
-			fmt.Printf("%s\t%f /s\n", item, rate*machineCount)
-		}
+	overallRates := processes.TotalIO()
+	fmt.Printf("==== Overall I/O ====\n")
+	fmt.Printf("---- Inputs ----\n")
+	for item, rate := range overallRates.Inputs {
+		fmt.Printf("%s\t%f /s\n", item, rate)
 	}
+	fmt.Printf("---- Outputs ----\n")
+	for item, rate := range overallRates.Outputs {
+		fmt.Printf("%s\t%f /s\n", item, rate)
+	}
+
+	// TODO: display per-process I/O
+	
+	//for i, rates := range processes.() {
+	//	comment := ""
+	//	if len(processes.Processes[i].Notes) > 0 {
+	//		comment = fmt.Sprintf(" (%s) ", processes.Processes[i].Notes)
+	//	}
+	//	fmt.Printf("\n===== %f x %s%s===== \n", processes.Processes[i].Count, processes.Processes[i].RecipeId, comment)
+	//	fmt.Printf("---- Input\n")
+	//	for item, rate := range rates.Inputs {
+	//		fmt.Printf("%s\t%f /s\n", item, rate*machineCount)
+	//	}
+	//	fmt.Printf("---- Output\n")
+	//	for item, rate := range rates.Outputs {
+	//		fmt.Printf("%s\t%f /s\n", item, rate*machineCount)
+	//	}
+	//}
 }

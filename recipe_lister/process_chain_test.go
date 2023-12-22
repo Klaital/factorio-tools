@@ -1,6 +1,8 @@
 package recipe_lister
 
 import (
+	"fmt"
+	"gopkg.in/yaml.v3"
 	"testing"
 )
 
@@ -28,10 +30,10 @@ func TestProcessChain_ComputeMachineCounts(t *testing.T) {
 						ID:      "child",
 						Recipe:  allRecipes["washing-1"],
 						Machine: allMachines["washing-plant-2"],
-						Parent: struct {
-							ID          string
-							ComponentID ItemName
-						}{ID: "parent", ComponentID: ItemName("solid-mud")},
+						Parent: ParentConfig{
+							ID:          "parent",
+							ComponentID: ItemName("solid-mud"),
+						},
 					},
 				},
 			},
@@ -59,4 +61,28 @@ func TestProcessChain_ComputeMachineCounts(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestLoadProcessChain(t *testing.T) {
+	allMachines := fixtureMachines()
+	allRecipes := fixtureRecipes()
+	processes := ProcessChain{
+		Processes: []Process{
+			{
+				Recipe:        allRecipes["washing-1"],
+				Machine:       allMachines["washing-plant-2"],
+				Modules:       ModuleConfig{},
+				BeaconModules: ModuleConfig{},
+				ID:            "mud production",
+			}, {
+				ID:           "soil manufacturing",
+				Recipe:       allRecipes["solid-soil"],
+				Machine:      allMachines["assembling-machine-2"],
+				MachineCount: 1,
+			},
+		},
+	}
+
+	b, _ := yaml.Marshal(processes)
+	fmt.Printf(string(b))
 }

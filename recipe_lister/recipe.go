@@ -11,7 +11,7 @@ import (
 type RecipeName string
 type ItemName string
 type Recipe struct {
-	Name             RecipeName  `json:"name"`
+	Name             RecipeName  `json:"name" yaml:"name"`
 	Energy           float64     `json:"energy"`
 	Ingredients      []Component `json:"ingredients"`
 	Products         []Component `json:"products"`

@@ -25,14 +25,13 @@ type Builder interface {
 type MachineName string
 
 type AssemblingMachine struct {
-	Name MachineName `json:"name"`
-	EnergyUsage float64 `json:"energy_usage"`
-	Drain float64 `json:"drain"`
-	CraftingSpeed float64 `json:"crafting_speed"`
-	ModuleInventorySize int64 `json:"module_inventory_size"`
-	CraftingCategories map[string]bool `json:"crafting_categories"`
+	Name                MachineName     `json:"name" yaml:"name"`
+	EnergyUsage         float64         `json:"energy_usage"`
+	Drain               float64         `json:"drain"`
+	CraftingSpeed       float64         `json:"crafting_speed"`
+	ModuleInventorySize int64           `json:"module_inventory_size"`
+	CraftingCategories  map[string]bool `json:"crafting_categories"`
 }
-
 
 func (m AssemblingMachine) GetName() MachineName {
 	return m.Name
@@ -58,10 +57,11 @@ func (m AssemblingMachine) GetModuleInventoryCount() int64 {
 }
 
 type Inserter struct {
-	Name MachineName `json:"name"`
-	EnergyUsage float64 `json:"max_energy_usage"`
-	Drain float64 `json:"drain"`
+	Name        MachineName `json:"name"`
+	EnergyUsage float64     `json:"max_energy_usage"`
+	Drain       float64     `json:"drain"`
 }
+
 func (m Inserter) GetOperatingWatts() float64 {
 	return m.EnergyUsage
 }
@@ -72,6 +72,27 @@ func (m Inserter) GetIdleWatts() float64 {
 	return m.Drain
 }
 
+func LoadAllBuilders(directory string) (map[MachineName]AssemblingMachine, error) {
+	assemblers, err := LoadAssemblingMachinesFile(fmt.Sprintf("%s/assembling-machine.json", directory))
+	if err != nil {
+		return nil, fmt.Errorf("loading assembling machines: %w", err)
+	}
+	furnaces, err := LoadFurnacesFile(fmt.Sprintf("%s/furnace.json", directory))
+	if err != nil {
+		return nil, fmt.Errorf("loading furnaces: %w", err)
+	}
+
+	// Merge the two datasets
+	machines := make(map[MachineName]AssemblingMachine, 0)
+	for name := range assemblers {
+		machines[assemblers[name].Name] = assemblers[name]
+	}
+	for name := range furnaces {
+		machines[furnaces[name].Name] = furnaces[name]
+	}
+
+	return machines, nil
+}
 func LoadAssemblingMachinesFile(path string) (dataSet map[string]AssemblingMachine, err error) {
 	assemblingMachines := make(map[string]AssemblingMachine, 0)
 	fileBytes, err := ioutil.ReadFile(path)

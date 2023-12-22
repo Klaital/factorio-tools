@@ -2,24 +2,63 @@ package recipe_lister
 
 import (
 	"fmt"
+	"gopkg.in/yaml.v3"
 	"log/slog"
+	"math"
+	"os"
 )
 
+type ParentConfig struct {
+	ID          string   `yaml:"id"`
+	ComponentID ItemName `yaml:"component"`
+}
 type Process struct {
-	ID            string
-	Recipe        Recipe
-	Machine       AssemblingMachine
-	MachineCount  float64
-	Modules       ModuleConfig
-	BeaconModules ModuleConfig
-	Parent        struct {
-		ID          string
-		ComponentID ItemName
-	}
+	ID            string            `yaml:"id"`
+	Recipe        Recipe            `yaml:"recipe"`
+	Machine       AssemblingMachine `yaml:"machine"`
+	MachineCount  float64           `yaml:"machinecount"`
+	Modules       ModuleConfig      `yaml:"modules"`
+	BeaconModules ModuleConfig      `yaml:"beaconmodules"`
+	Parent        ParentConfig      `yaml:"parent"`
 }
 type ProcessChain struct {
-	OutputTargetRates map[string]float64 // how much per second to produce
-	Processes         []Process
+	OutputTargetRates map[string]float64 `yaml:"OutputTargetRates"` // how much per second to produce
+	Processes         []Process          `yaml:"Processes"`
+}
+
+func LoadProcessChain(processFile string, recipeListerDir string) (*ProcessChain, error) {
+	// Load the process list itself
+	b, err := os.ReadFile(processFile)
+	if err != nil {
+		return nil, fmt.Errorf("loading process file: %w", err)
+	}
+
+	var processes ProcessChain
+	err = yaml.Unmarshal(b, &processes)
+	if err != nil {
+		return nil, fmt.Errorf("unmarshalling process file: %w", err)
+	}
+
+	// Load the recipe and machine data
+	recipes, err := LoadRecipes(recipeListerDir)
+	if err != nil {
+		return nil, err
+	}
+	machines, err := LoadAllBuilders(recipeListerDir)
+	if err != nil {
+		return nil, err
+	}
+
+	// Populate the process chain with game data
+	processes.AnnotateGameData(recipes, machines)
+	return &processes, nil
+}
+
+func (c *ProcessChain) AnnotateGameData(recipes map[RecipeName]Recipe, machines map[MachineName]AssemblingMachine) {
+	for i, process := range c.Processes {
+		c.Processes[i].Recipe = recipes[process.Recipe.Name]
+		c.Processes[i].Machine = machines[process.Machine.Name]
+	}
 }
 
 func (c *ProcessChain) GetProcessById(id string) *Process {
@@ -129,4 +168,54 @@ func (p *Process) MatchProduction(otherProcess *Process, name ItemName) {
 	}
 
 	p.MachineCount = targetRate / productionRate
+}
+
+func (c *ProcessChain) TotalIO() RecipeRates {
+	sum := NewRates()
+	for _, process := range c.Processes {
+		processRates := process.ItemsPerSecond()
+		sum.Add(processRates)
+	}
+	return Split(sum.Merge())
+}
+
+// Merge combines input and outputs in one set, with inputs as negatives.
+func (r *RecipeRates) Merge() map[ItemName]float64 {
+	all := make(map[ItemName]float64, 0)
+	for n, rate := range r.Inputs {
+		all[n] = -1.0 * rate
+	}
+	for n, rate := range r.Outputs {
+		all[n] = rate
+	}
+	return all
+}
+
+var epsilon float64 = 1e-6
+
+// Split is the opposite of RecipeRates#Merge. Negative rates translate
+// to inputs, positive to outputs. Rates less than epsilon are omitted.
+func Split(rates map[ItemName]float64) RecipeRates {
+	split := NewRates()
+	for name, rate := range rates {
+		abs := math.Abs(rate)
+		if abs < epsilon {
+			continue
+		}
+		if rate < 0 {
+			split.Inputs[name] = abs
+		} else {
+			split.Outputs[name] = abs
+		}
+	}
+	return split
+}
+
+func (r *RecipeRates) Add(more RecipeRates) {
+	for name, rate := range more.Inputs {
+		r.Inputs[name] = r.Inputs[name] + rate
+	}
+	for name, rate := range more.Outputs {
+		r.Outputs[name] = r.Outputs[name] + rate
+	}
 }
