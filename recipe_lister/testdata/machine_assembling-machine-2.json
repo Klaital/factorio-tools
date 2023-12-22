@@ -1,0 +1,47 @@
+{
+  "name" : "assembling-machine-2",
+  "localised_name" : [
+    "entity-name.assembling-machine-2"
+  ],
+  "type" : "assembling-machine",
+  "energy_usage" : 135000,
+  "ingredient_count" : 255,
+  "crafting_speed" : 0.75,
+  "crafting_categories" : {
+    "basic-crafting" : true,
+    "crafting" : true,
+    "advanced-crafting" : true,
+    "crafting-with-fluid" : true,
+    "crafting-machine" : true,
+    "distillery" : true,
+    "electronics" : true,
+    "electronics-machine" : true,
+    "electronics-with-fluid" : true
+  },
+  "module_inventory_size" : 2,
+  "allowed_effects" : {
+    "consumption" : true,
+    "speed" : true,
+    "productivity" : true,
+    "pollution" : true
+  },
+  "friendly_map_color" : {
+    "r" : 0,
+    "g" : 96,
+    "b" : 145,
+    "a" : 255
+  },
+  "enemy_map_color" : {
+    "r" : 255,
+    "g" : 25,
+    "b" : 25,
+    "a" : 255
+  },
+  "energy_source" : {
+    "electric" : {
+      "drain" : 4500,
+      "emissions" : 3.7037037037037e-07
+    }
+  },
+  "pollution" : 3
+}

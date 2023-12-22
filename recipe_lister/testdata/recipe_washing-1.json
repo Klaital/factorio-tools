@@ -1,0 +1,60 @@
+{
+  "name" : "washing-1",
+  "localised_name" : [
+    "fluid-name.water-heavy-mud"
+  ],
+  "category" : "washing-plant",
+  "order" : "b",
+  "group" : {
+    "name" : "water-treatment",
+    "type" : "item-group"
+  },
+  "subgroup" : {
+    "name" : "water-washing",
+    "type" : "item-subgroup"
+  },
+  "enabled" : false,
+  "hidden" : false,
+  "hidden_from_player_crafting" : false,
+  "emissions_multiplier" : 1,
+  "energy" : 5,
+  "ingredients" : [
+    {
+      "type" : "fluid",
+      "name" : "water-viscous-mud",
+      "amount" : 200
+    },
+    {
+      "type" : "fluid",
+      "name" : "water",
+      "amount" : 50
+    }
+  ],
+  "products" : [
+    {
+      "type" : "item",
+      "name" : "solid-mud",
+      "probability" : 0.5,
+      "amount_min" : 0,
+      "amount_max" : 3
+    },
+    {
+      "type" : "fluid",
+      "name" : "water-heavy-mud",
+      "probability" : 1,
+      "amount" : 200
+    },
+    {
+      "type" : "fluid",
+      "name" : "gas-hydrogen-sulfide",
+      "probability" : 1,
+      "amount" : 2
+    }
+  ],
+  "main_product" : {
+    "type" : "fluid",
+    "name" : "water-heavy-mud",
+    "probability" : 1,
+    "amount" : 200
+  }
+}

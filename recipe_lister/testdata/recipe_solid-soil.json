@@ -1,0 +1,47 @@
+{
+  "name" : "solid-soil",
+  "localised_name" : [
+    "item-name.solid-soil"
+  ],
+  "category" : "crafting",
+  "order" : "a[support]-aa",
+  "group" : {
+    "name" : "bio-processing-nauvis",
+    "type" : "item-group"
+  },
+  "subgroup" : {
+    "name" : "bio-wood",
+    "type" : "item-subgroup"
+  },
+  "enabled" : false,
+  "hidden" : false,
+  "hidden_from_player_crafting" : false,
+  "emissions_multiplier" : 1,
+  "energy" : 4,
+  "ingredients" : [
+    {
+      "type" : "item",
+      "name" : "solid-mud",
+      "amount" : 1
+    },
+    {
+      "type" : "item",
+      "name" : "solid-compost",
+      "amount" : 1
+    }
+  ],
+  "products" : [
+    {
+      "type" : "item",
+      "name" : "solid-soil",
+      "probability" : 1,
+      "amount" : 1
+    }
+  ],
+  "main_product" : {
+    "type" : "item",
+    "name" : "solid-soil",
+    "probability" : 1,
+    "amount" : 1
+  }
+}

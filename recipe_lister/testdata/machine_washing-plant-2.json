@@ -1,0 +1,39 @@
+{
+  "name" : "washing-plant-2",
+  "localised_name" : [
+    "entity-name.washing-plant-2"
+  ],
+  "type" : "assembling-machine",
+  "energy_usage" : 150000,
+  "ingredient_count" : 4,
+  "crafting_speed" : 2.25,
+  "crafting_categories" : {
+    "washing-plant" : true
+  },
+  "module_inventory_size" : 2,
+  "allowed_effects" : {
+    "consumption" : true,
+    "speed" : true,
+    "productivity" : true,
+    "pollution" : true
+  },
+  "friendly_map_color" : {
+    "r" : 0,
+    "g" : 96,
+    "b" : 145,
+    "a" : 255
+  },
+  "enemy_map_color" : {
+    "r" : 255,
+    "g" : 25,
+    "b" : 25,
+    "a" : 255
+  },
+  "energy_source" : {
+    "electric" : {
+      "drain" : 5000,
+      "emissions" : 2.6666666666667e-07
+    }
+  },
+  "pollution" : 2.4
+}
